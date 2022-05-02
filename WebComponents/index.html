@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<body>
+    <my-square title="bla" description="more bla">
+        <img src="./login.png" />  
+    </my-square>
+    <page-1></page-1>
+    <page-1></page-1>
+    <page-1></page-1>
+    <button>Load Component</button>
+    <script>
+        document.querySelector("button").addEventListener('click', async () => {
+            console.log("importing the module")
+            await import("./login.js")
+            console.log("done")
+        }); 
+
+        // document.querySelector("my-square").addEventListener("login-completed", (e) => {
+        //     console.log("ok, switch pages here..", e)
+        // })
+    </script>
+</body>
+</html>

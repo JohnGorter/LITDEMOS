@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        :root { --bg-coslor:red }
+    </style>
+   
+    <my-square title="bla" description="more bla">
+        <img src="./login.png" />
+    </my-square>
+
+    
+    <template id="mytemplate">
+        <style>
+            div { width:100px;height:100px;background-color:var(--bg-color, orange)}
+            ::slotted(img) { width:50px;height:50px;}
+            #square {display:flex;align-items:center;justify-content:center;flex-direction: column;}
+        </style>
+        <div id="square">
+            <span id="title">Default title</span>
+            <slot></slot>
+            <button id="btnLogin">login</button>
+        </div>
+    </template>
+
+    <script>
+        class MySquare extends HTMLElement {
+            static get observedAttributes() { return ['title']}
+
+            constructor(){
+                super();
+                this._title = "title here.."
+                this.attachShadow({mode:'open'})
+                // square.shadowRoot.appendChild(document.importNode(content, true))
+            }
+            connectedCallback() {
+                console.log("connected") 
+                this.render()
+            }
+            attributeChangedCallback(attribute, oldvalue, newvalue) {
+               console.log("data", attribute, oldvalue, newvalue)
+               if (attribute == "title") {
+                   this["_" + attribute] = newvalue
+                   this.render(); 
+               }
+            }
+            render() {
+                console.log("rendering again..")
+                let content = document.querySelector("#mytemplate").content
+                this.shadowRoot.innerHTML = ''
+                this.shadowRoot.appendChild(content.cloneNode(true))
+                const btnLogin = this.shadowRoot.querySelector("#btnLogin")
+                const title = this.shadowRoot.querySelector("#title")
+                title.innerHTML = this._title
+                btnLogin.addEventListener('click', () => {
+                    this.dispatchEvent(new CustomEvent('login-completed', {detail:{user:'john'}}))
+                })
+            }
+            set title (v){
+                this._title = v;
+                this.setAttribute("title", v)
+                this.render(); 
+            }
+            get title() {
+                return this._title
+            }
+            randomizeColor() {
+                console.log("changing the color..");
+            }
+        }
+        customElements.define('my-square', MySquare)
+
+
+      
+    </script>
+    <script>
+        document.querySelector("my-square").addEventListener("login-completed", (e) => {
+            console.log("ok, switch pages here..", e)
+        })
+    </script>
+</body>
+</html>
