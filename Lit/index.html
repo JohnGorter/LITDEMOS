@@ -5,9 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script type="module" src="./index.js"></script>
+  
 </head>
 <body>
-    <my-counter></my-counter>
+    <addressbook id="mybook">
+        <addressbook-entry>john1</addressbook-entry>
+        <addressbook-entry>john2</addressbook-entry>
+        <addressbook-entry>john3</addressbook-entry>
+        <addressbook-entry>john4</addressbook-entry>
+        <addressbook-entry>john5</addressbook-entry>
+    </addressbook>
+    <!-- <script type="module" src="./index.js"></script> -->
+
+    <button id="btnAdd">Make a new entry</button>
+    <script type="module">
+        import("./index.js").then(({AddressBookEntry}) => {
+            let e = new AddressBookEntry();
+            document.querySelector("#mybook").appendChild(e); 
+        }
+        )
+        // document.querySelector("#btnAdd").addEventListener('click', ()=>{
+        //     let entry = document.createElement("addressbook-entry")
+        //     entry.innerHTML = 'new john is born'
+        //     document.querySelector("#mybook").appendChild(entry); 
+        // })
+    </script>
 </body>
 </html>

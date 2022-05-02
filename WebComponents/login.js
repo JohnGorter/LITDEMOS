@@ -11,8 +11,6 @@ template.innerHTML = `
         <button id="btnLogin">login</button>
     </div>
 `
-
-
 class MySquare extends HTMLElement {
     static get observedAttributes() { return ['title']}
 
@@ -59,6 +57,5 @@ class MySquare extends HTMLElement {
         console.log("changing the color..");
     }
 }
-
 customElements.define('my-square', MySquare)
 

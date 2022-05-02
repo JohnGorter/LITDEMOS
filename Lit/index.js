@@ -19,24 +19,50 @@
 // }
 
 import { LitElement, html } from 'lit'
+import { when } from 'lit/directives/when.js'
 
-export class MyCounter extends LitElement {
-    static properties = {
-        cval: {},
-      };
-
-    constructor(){
-        super(); 
-        this.cval = '0'
-        setInterval(() => {
-            this.cval = this.cval + 1
-        }, 1000); 
-        
-    }
+export class AddressBook extends LitElement {
     render(){
         return html`
-        <div>${this.cval}</div>
+            <div>
+            <h1>Addressbook</h1>
+            <slot></slot>
+            </div>
         `
     }
 }
-customElements.define("my-counter", MyCounter); 
+customElements.define("address-book", AddressBook); 
+
+export class AddressBookEntry extends LitElement {
+    render(){
+        return html`
+            <div><h1>${when(true, () => html`todo`, () => html`test`)}</h1>
+            <span class='addressbookentry'><slot></slot></span>
+            </div>
+        `
+    }
+}
+customElements.define("addressbook-entry", AddressBookEntry); 
+
+
+export class AddressBookApp extends LitElement {
+
+    constructor(){
+        super(); 
+        this.entries= ['a','b','c']
+    }
+
+    render(){
+        return html`jgipejtpreijt
+            <address-book>
+                ${this.entries.map(e => html`<addressbook-entry>${e}</addressbook-entry>`)}
+            </address-book>
+        `
+    }
+}
+customElements.define("addressbook-app", AddressBookApp); 
+
+
+// <address-book>
+//        <addres-entry></addres-entry>
+// </address-book>
