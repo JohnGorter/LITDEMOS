@@ -1,4 +1,4 @@
-# Exersize 2. Extract the magic string of innerHTML
+# Exercise 2. Extract the magic string of innerHTML
 
 Get rid of the innerHTML in your code and use a template to fill in the contents of the shadowRoot. 
 
